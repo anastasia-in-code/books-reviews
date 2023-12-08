@@ -1,4 +1,6 @@
-import { allBooks, imageUrl } from './book.js'
+import { allBooks, imageUrl, findBookById } from './book.js'
+import { allReviews } from './review.js';
+import {userById} from './user.js'
 
 const resolvers = {
     Book: {
@@ -9,10 +11,25 @@ const resolvers = {
             return findAuthorsByBookIdsLoader.load(book.id);
           },
     },
+    Review: {
+        book: (review, args, context) => {
+            const { loaders } = context;
+            const { findBooksByIdLoader } = loaders;
+            return findBooksByIdLoader.load(review.id)
+        },
+        user: (review, args, context) => {
+            const { loaders } = context;
+            const { findUsersByIdsLoader } = loaders;
+            return findUsersByIdsLoader.load(review.userId)
+        },
+    },
     Query: {
         books: () => {
             return allBooks()
         },
+        reviews: () => {
+            return allReviews()
+        }
     },
 };
 
