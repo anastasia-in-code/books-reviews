@@ -1,3 +1,4 @@
+// FRAGMENTS
 fragment Book on Book {
   id
   title
@@ -6,14 +7,17 @@ fragment Book on Book {
 }
 
 fragment Review on Review {
-    comment
-    rating
-    title
-    user {
-      name
-    }
+  id
+  comment
+  rating
+  title
+  user {
+    name
+    imageUrl
+  }
 }
 
+// QUERIES
 HomePage query returns the list of the books and reviews
 variables - {
   "size": "LARGE",
@@ -38,6 +42,20 @@ query HomePage(
     book {
       ...Book
       imageUrl(size: $smallSize)
+    }
+  }
+}
+
+HomePage query returns the particular book's data
+query BookPage {
+  book(bookId: "2") {
+    ...Book
+    imageUrl
+    reviews {
+      ...Review
+    }
+    authors {
+      name
     }
   }
 }

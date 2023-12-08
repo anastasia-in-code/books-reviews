@@ -16,6 +16,7 @@ type Book {
     rating: Float
     subtitle: String
     authors: [Author]
+    reviews: [Review]
 }
 enum ImageSize {
     SMALL
@@ -47,6 +48,7 @@ type User {
     name: String
     tokens: String
     createdAt: String
+    imageUrl(size: Int =50): String
 }
 `;
 

@@ -1,7 +1,11 @@
 import { allBooks, imageUrl, findBookById } from './book.js'
 import { allReviews } from './review.js';
+import gravatar from 'gravatar'
 
 const resolvers = {
+    User: {
+        imageUrl: (user, args) => gravatar.url(user.email, {s: args.size})
+    },
     Book: {
         imageUrl: (book, { size }) => imageUrl(size, book.googleId),
         authors: (book, args, context) => {
@@ -9,6 +13,11 @@ const resolvers = {
             const { findAuthorsByBookIdsLoader } = loaders;
             return findAuthorsByBookIdsLoader.load(book.id);
           },
+          reviews: (book,args,context) => {
+            const {loaders} = context
+            const {findReviewsByBookIdsLoader} = loaders
+            return findReviewsByBookIdsLoader.load(book.id)
+          }
     },
     Review: {
         book: (review, args, context) => {
@@ -29,8 +38,10 @@ const resolvers = {
         reviews: (root, args) => {
             return allReviews(args)
         },
-        book: (root, args) => {
-            return findBookById(args.bookId)
+        book: (root, args, context) => {
+            const { loaders } = context;
+            const { findBooksByIdLoader } = loaders;
+            return findBooksByIdLoader.load(args.bookId)
         }
     },
 };
