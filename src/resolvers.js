@@ -1,6 +1,5 @@
 import { allBooks, imageUrl, findBookById } from './book.js'
 import { allReviews } from './review.js';
-import {userById} from './user.js'
 
 const resolvers = {
     Book: {
@@ -24,11 +23,11 @@ const resolvers = {
         },
     },
     Query: {
-        books: () => {
-            return allBooks()
+        books: (root, args) => {
+            return allBooks(args)
         },
-        reviews: () => {
-            return allReviews()
+        reviews: (root, args) => {
+            return allReviews(args)
         }
     },
 };

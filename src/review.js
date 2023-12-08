@@ -1,8 +1,16 @@
 import query from "./db.js";
 
-export async function allReviews() {
+const ORDER_BY ={
+    ID_DESC: 'id desc',
+    ID_ASC: 'id asc'
+}
+
+export async function allReviews({orderReviews}) {
+    const order = ORDER_BY[orderReviews]
     const sql = `
-    select * from hb.review;
+    select * from hb.review
+    order by ${order}
+    ;
     `
     try {
         const result = await query(sql)
