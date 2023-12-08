@@ -28,6 +28,9 @@ const resolvers = {
         },
         reviews: (root, args) => {
             return allReviews(args)
+        },
+        book: (root, args) => {
+            return findBookById(args.bookId)
         }
     },
 };

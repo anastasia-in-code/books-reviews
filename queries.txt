@@ -1,0 +1,43 @@
+fragment Book on Book {
+  id
+  title
+  description
+  rating
+}
+
+fragment Review on Review {
+    comment
+    rating
+    title
+    user {
+      name
+    }
+}
+
+HomePage query returns the list of the books and reviews
+variables - {
+  "size": "LARGE",
+  "orderBy": "ID_DESC",
+  "smallSize": "SMALL"
+}
+query HomePage(
+  $size: ImageSize
+  $smallSize: ImageSize
+  $orderBy: BooksOrderBy
+  $orderReviews: ReviewsOrderBy
+) {
+  books(orderBy: $orderBy) {
+    ...Book
+    imageUrl(size: $size)
+    authors {
+      name
+    }
+  }
+  reviews(orderReviews: $orderReviews) {
+    ...Review
+    book {
+      ...Book
+      imageUrl(size: $smallSize)
+    }
+  }
+}
