@@ -1,5 +1,4 @@
 import { allBooks, imageUrl } from './book.js'
-import { authorsByBookId } from './author.js';
 
 const resolvers = {
     Book: {
