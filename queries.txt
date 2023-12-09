@@ -86,3 +86,11 @@ query SearchBook($query: String!) {
     ...SerchBook
   }
 }
+
+// add Book (save book found through Google Books)
+mutation CreateBook($googleBookId: ID!) {
+  createBook(googleBookId: $googleBookId) {
+    id
+    title
+  }
+}

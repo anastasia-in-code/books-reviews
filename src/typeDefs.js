@@ -3,12 +3,27 @@ schema {
   query: Query
   mutation: Mutation
 }
+
+# root query
 type Query {
-  books(orderBy: BooksOrderBy = RATING_DESC): [Book]
-  reviews(orderReviews: ReviewsOrderBy = ID_DESC): [Review]
-  book(bookId: ID!): Book
-  searchBook(query: String!): [SearchBookResult]
+  # books
+  books(
+    # book sorting order 
+    orderBy: BooksOrderBy = RATING_DESC): [Book]
+  # book reviews
+  reviews(
+    # reviews sorting order 
+    orderReviews: ReviewsOrderBy = ID_DESC): [Review]
+  # specific book
+  book(
+    # book id
+    bookId: ID!): Book
+  # seach
+  searchBook(
+    # search value
+    query: String!): [SearchBookResult]
 }
+
 type Mutation {
     createReview(reviewInput: ReviewInput!) : Review
     createBook(googleBookId: ID!): Book

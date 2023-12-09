@@ -31,9 +31,6 @@ const server = new ApolloServer({
 await server.start();
 server.applyMiddleware({
   app,
-  // By default, apollo-server hosts its GraphQL endpoint at the
-  // server root. However, *other* Apollo Server packages host it at
-  // /graphql. Optionally provide this to match apollo-server.
   path: '/',
 });
 
