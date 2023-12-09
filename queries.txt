@@ -17,6 +17,16 @@ fragment Review on Review {
   }
 }
 
+fragment SerchBook on SearchBookResult {
+      id
+    title
+    description
+    authors {
+      name
+    } 
+    imageUrl
+}
+
 // QUERIES
 HomePage query returns the list of the books and reviews
 variables - {
@@ -57,5 +67,22 @@ query BookPage {
     authors {
       name
     }
+  }
+}
+
+// mutation to add the new review
+mutation CreateReview($reviewInput: ReviewInput!) {
+ createReview(reviewInput: $reviewInput) {
+   id
+   rating
+   title
+   comment
+ }
+}
+
+// search for new book to add
+query SearchBook($query: String!) {
+  searchBook (query: $query) {
+    ...SerchBook
   }
 }

@@ -1,11 +1,17 @@
 const typeDefs = `
 schema {
   query: Query
+  mutation: Mutation
 }
 type Query {
   books(orderBy: BooksOrderBy = RATING_DESC): [Book]
   reviews(orderReviews: ReviewsOrderBy = ID_DESC): [Review]
   book(bookId: ID!): Book
+  searchBook(query: String!): [SearchBookResult]
+}
+type Mutation {
+    createReview(reviewInput: ReviewInput!) : Review
+    createBook(googleBookId: ID!): Book
 }
 type Book {
     id: ID!
@@ -17,6 +23,21 @@ type Book {
     subtitle: String
     authors: [Author]
     reviews: [Review]
+}
+type SearchBookResult {
+    id: ID!
+    title: String!
+    description: String!
+    authors: [Author]
+    imageUrl(size: ImageSize = LARGE): String!
+}
+input ReviewInput {
+    bookId: ID!
+    rating: Int!
+    name: String!
+    email: String!
+    title: String!
+    comment: String!
 }
 enum ImageSize {
     SMALL
